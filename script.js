@@ -2,32 +2,50 @@ const question = ["What is the capital city of Australia?", 'Who painted the Mon
 const answers = ['Canberra', 'Leonardo da Vinci', 'Brazil'];
 const wrongAnswers = [['Sydney', 'Melbourne', 'Brisbane'], ['Pablo Picasso', 'Vincent van Gogh', 'Michelangelo'], ['Colombia', 'Ethiopia', 'Vietnam']];
 
-
-let gameOver = 3;
+let gameOver = false;
 let guesses = 0;
-if (guesses = gameOver) {
-    console.timeLog('GAME OVER');
+let currentQuestionIndex = 0;
+let correct = 0;
+let maxGuesses = 3;
 
-}
-else {
-    { console.log }
-    const randomQuestion = Math.floor(Math.random() * question.length);
-    console.log(question[randomQuestion]);
+while (!gameOver) {
+    const currentQuestion = question[currentQuestionIndex];
+    console.log(currentQuestion);
 
-
-    const allAnswers = [answers[randomQuestion], ...wrongAnswers[randomQuestion]];
-
+    const allAnswers = [answers[currentQuestionIndex], ...wrongAnswers[currentQuestionIndex]];
     console.log('Available answers:');
     console.log(allAnswers);
 
+
+
     let userAnswer = prompt('What is your answer?');
 
-    if (userAnswer === answers[randomQuestion]) {
+    if (userAnswer === null) {
+        console.log('Game exited.');
+        gameOver = true;
+
+    } else if (userAnswer === answers[currentQuestionIndex]) {
         console.log('Correct!');
-
+        correct++
+        currentQuestionIndex++; // Move to the next question
+        if (currentQuestionIndex === question.length) {
+            console.log(`well done! you got ${correct}, out of 3`);
+            gameOver = true;
+        }
     } else {
-        console.log('Incorrect. Try again!');
-        guesses++
+        console.log('Oops that was wrong');
 
+        currentQuestionIndex++;
+        if (currentQuestionIndex === question.length) {
+            console.log(`Oh Dear, you got ${correct}, out of 3`);
+            gameOver = true;
+        }
     }
 }
+
+//      (guesses === maxGuesses) {
+//         console.log('GAME OVER, you are our of lives');
+//         guesses++;
+//         gameOver = true;
+//     }
+// ###
